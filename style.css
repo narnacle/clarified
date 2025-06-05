@@ -92,6 +92,63 @@ a {
     color: #ff0033;
 }
 
+/* Dropdown */
+.nav-menu .dropdown {
+    position: relative;
+}
+
+.nav-menu .dropdown a i {
+    margin-left: 6px;
+    font-size: 0.7rem;
+}
+
+.nav-menu .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.nav-menu .dropdown-menu li {
+    padding: 0;
+}
+
+.nav-menu .dropdown-menu a {
+    padding: 0.6rem 1rem;
+    display: block;
+    color: #333;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.nav-menu .dropdown-menu a:hover {
+    background-color: #f4f4f4;
+    color: #ff0033;
+}
+
+.nav-menu .dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/* Optional for smaller screens */
+@media (max-width: 768px) {
+    .nav-menu .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        display: none;
+    }
+
+    .nav-menu .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
 .cta-button .btn-primary {
     background-color: #ff0033;
     color: #fff;
