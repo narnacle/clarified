@@ -32,33 +32,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!valid) return;
 
-    // Email configuration (replace with your secure token)
-    Email.send({
-      SecureToken: "YOUR_SECURE_TOKEN_HERE", // <-- replace with your real token
-      To: "your@email.com",                  // <-- where the email should be sent
-      From: email,
-      Subject: subject || "New Contact Form Message",
-      Body: `
-        <strong>Name:</strong> ${name}<br>
-        <strong>Email:</strong> ${email}<br>
-        <strong>Subject:</strong> ${subject}<br>
-        <strong>Message:</strong><br>${message.replace(/\n/g, "<br>")}
-      `
-    }).then(function (response) {
-      const success = document.createElement("div");
-      success.className = "form-alert";
-      success.style.color = "green";
-      success.style.marginTop = "10px";
-      success.innerText = "Message sent successfully!";
-      form.prepend(success);
-      form.reset();
-    }).catch(function (error) {
-      const fail = document.createElement("div");
-      fail.className = "form-alert";
-      fail.style.color = "red";
-      fail.style.marginTop = "10px";
-      fail.innerText = "Failed to send message. Please try again.";
-      form.prepend(fail);
+    // Google Forms configuration
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector(".google-form");
+      const msgBox = document.getElementById("form-msg");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const data = new FormData(form);
+
+        fetch("https://docs.google.com/forms/d/e/1FAIpQLSdghT9sf1BUUe2rCHz9V8uEWy0jH6-eb7jhzLuvgWDUnMReyw/formResponse", {
+          method: "POST",
+          mode: "no-cors",
+          body: data
+        })
+          .then(() => {
+            form.reset();
+            msgBox.style.color = "green";
+            msgBox.textContent = "Message sent successfully!";
+          })
+          .catch(() => {
+            msgBox.style.color = "red";
+            msgBox.textContent = "There was an error sending your message.";
+          });
+      });
     });
   });
 });
